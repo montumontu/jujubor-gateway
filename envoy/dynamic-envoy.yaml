@@ -1,0 +1,10 @@
+node:
+  cluster: http-cluster
+  id: http-cluster-id
+dynamic_resources:
+  cds_config:
+    resource_api_version: V3
+    path: /etc/envoy/clusters.yaml
+  lds_config:
+    resource_api_version: V3
+    path: /etc/envoy/listeners.yaml

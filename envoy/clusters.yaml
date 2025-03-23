@@ -1,0 +1,25 @@
+resources:
+- "@type": type.googleapis.com/envoy.config.cluster.v3.Cluster
+  name: service_behind_envoy
+  connect_timeout: 0.25s
+  type: STRICT_DNS
+  lb_policy: ROUND_ROBIN
+  dns_lookup_family: V4_ONLY
+  load_assignment:
+    cluster_name: service_behind_envoy
+    endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: nodeapp
+                port_value: 8080
+                #address: httpbin.org
+                #port_value: 80
+                # address: postman-echo.com
+                # port_value: 443
+  # transport_socket:
+  #   name: envoy.transport_sockets.tls
+  #   typed_config:
+  #     "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext
+  #     sni: httpbin.org

@@ -8,6 +8,6 @@ COPY dynamic-envoy.yaml /etc/envoy/dynamic-envoy.yaml
 
 # COPY ./envoy.yaml ./envoy.yaml
 
-EXPOSE 10001
-
+# EXPOSE 10001
+# EXPOSE 9905
 CMD ["envoy", "-c",  "/etc/envoy/dynamic-envoy.yaml", "--log-level", "debug"]

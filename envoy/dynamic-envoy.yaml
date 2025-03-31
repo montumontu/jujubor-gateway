@@ -1,6 +1,12 @@
 node:
   cluster: http-cluster
   id: http-cluster-id
+admin:
+  access_log_path: /tmp/admin_access.log
+  address:
+    socket_address:
+      address: 0.0.0.0  # Allows access from all network interfaces
+      port_value: 9905  # Admin API exposed on port 9905
 dynamic_resources:
   cds_config:
     resource_api_version: V3

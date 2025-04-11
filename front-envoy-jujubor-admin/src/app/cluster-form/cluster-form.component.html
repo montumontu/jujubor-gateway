@@ -1,0 +1,92 @@
+<div class="form-wrapper">
+    <h2>Configure Envoy Clusters</h2>
+  
+    <form [formGroup]="clusterForm" (ngSubmit)="onSubmit()">
+      <div formArrayName="clusters">
+        <div
+          class="cluster-card"
+          *ngFor="let cluster of clusters.controls; let i = index"
+          [formGroupName]="i"
+        >
+          <div class="card-header">
+            <h3>Cluster #{{ i + 1 }}</h3>
+            <button type="button" class="icon-btn danger" (click)="removeCluster(i)">✖</button>
+          </div>
+  
+          <div class="form-row">
+            <label>Cluster Name</label>
+            <input type="text" formControlName="clusterName" placeholder="e.g. service_behind_envoy" />
+          </div>
+  
+          <div class="form-row">
+            <label>Address</label>
+            <input type="text" formControlName="address" placeholder="e.g. postman-echo.com" />
+          </div>
+  
+          <div class="form-row">
+            <label>Port</label>
+            <input type="number" formControlName="port" placeholder="e.g. 443" />
+          </div>
+          <div class="form-row">
+            <label>Route Prefix</label>
+            <input type="text" formControlName="prefix" required placeholder="/health" />
+          </div>
+          <div class="form-row checkbox-row">
+            <label class="checkbox-label">
+              Use TLS (HTTPS)
+              <input type="checkbox" formControlName="useTLS" />
+            </label>
+          </div>
+          <div formGroupName="cors">
+            <div class="form-row checkbox-row">
+              <label class="checkbox-label">
+                <span>Enable CORS:</span>
+                <input type="checkbox" formControlName="enabled" />
+              </label>
+            </div>
+            <!-- <pre>{{ clusterForm.value | json }}</pre> -->
+
+            <ng-container *ngIf="cluster.get('cors.enabled')?.value">
+              <div class="form-row">
+                <label>Allowed Origins:</label>
+                <input type="text" formControlName="allowedOrigins" placeholder="e.g. https://example.com, http://localhost:4200" />
+              </div>
+            
+              <div class="form-row">
+                <label>Allowed Methods:</label>
+                <input type="text" formControlName="allowedMethods" placeholder="e.g. GET, POST, PUT" />
+              </div>
+            
+              <div class="form-row">
+                <label>Allowed Headers:</label>
+                <input type="text" formControlName="allowedHeaders" placeholder="e.g. Content-Type, Authorization" />
+              </div>
+            
+              <div class="form-row">
+                <label>Expose Headers:</label>
+                <input type="text" formControlName="exposeHeaders" placeholder="e.g. X-Custom-Header" />
+              </div>
+            
+              <div class="form-row checkbox-row">
+                <label class="checkbox-label">
+                  <span>Allow Credentials:</span>
+                  <input type="checkbox" formControlName="allowCredentials" />
+                </label>
+              </div>
+            
+              <div class="form-row">
+                <label>Max Age (seconds):</label>
+                <input type="number" formControlName="maxAge" placeholder="e.g. 3600" />
+              </div>
+            </ng-container>
+          </div>                  
+        </div>
+      </div>
+  
+      <div class="button-row">
+        <button type="button" class="icon-btn success" (click)="addCluster()">➕ Add Cluster</button>
+        <button type="submit" class="submit-btn">🚀 Submit</button>
+      </div>
+    </form>
+  </div>
+  

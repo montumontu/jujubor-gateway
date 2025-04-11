@@ -1,0 +1,35 @@
+<header class="main-header">
+    <div class="logo-section">
+      <button class="menu-toggle" (click)="toggleMenu()">☰</button>
+      <img src="assets/images/jujubetechlogo.png" alt="Logo" />
+      <div class="tagline">
+        <h1>Jujubor Admin</h1>
+        <p>Securely Manage Your API Gateway with Ease</p>
+      </div>
+    </div>
+  
+    <nav class="nav" [class.open]="menuOpen || !isMobile">
+      <ul class="nav-list">
+        <li [class.active]="isActive('/')"><a routerLink="/">Home</a></li>
+  
+        <li class="dropdown" [class.active]="currentRoute.startsWith('/clusters')">
+          <a href="#" (click)="toggleDropdown($event)">Clusters ▾</a>
+          <ul class="dropdown-menu">
+            <li><a routerLink="/clusters">Manage Clusters</a></li>
+            <li><a routerLink="/add-cluster">Add Cluster</a></li>
+          </ul>
+        </li>
+  
+        <li class="dropdown" [class.active]="currentRoute.startsWith('/cors') || currentRoute.startsWith('/security')">
+          <a href="#" (click)="toggleDropdown($event)">Settings ▾</a>
+          <ul class="dropdown-menu">
+            <li><a routerLink="/cors-settings">CORS Settings</a></li>
+            <li><a routerLink="/security">Security Options</a></li>
+          </ul>
+        </li>
+  
+        <li [class.active]="isActive('/help')"><a routerLink="/help">Help</a></li>
+      </ul>
+    </nav>
+  </header>
+  

@@ -1,0 +1,36 @@
+resources:
+- "@type": type.googleapis.com/envoy.config.cluster.v3.Cluster
+  name: service_behind_envoy
+  connect_timeout: 5s
+  type: STRICT_DNS
+  lb_policy: ROUND_ROBIN
+  dns_lookup_family: V4_ONLY
+  load_assignment:
+    cluster_name: service_behind_envoy
+    endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                # address: nodeapp
+                # port_value: 8080
+                # address: httpbin.org
+                # port_value: 80
+                address: postman-echo.com
+                port_value: 443
+   # for the below health check to be active, i need a real server             
+  # health_checks:
+  #     - timeout: 3s               # Wait 3s for response
+  #       interval: 5s              # Ping every 5s
+  #       unhealthy_threshold: 3     # Remove after 3 failures
+  #       healthy_threshold: 2       # Restore after 2 successful checks
+  #       http_health_check:
+  #         path: "/health"          # Call this endpoint for health status
+  #         expected_statuses:
+  #           - start: 200
+  #             end: 299
+  transport_socket:
+    name: envoy.transport_sockets.tls
+    typed_config:
+      "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext
+      sni: postman-echo.com

@@ -1,10 +1,12 @@
 import { ApiController } from "./api.controller";
 import middy from '@middy/core';
+import inputOutputLogger from '@middy/input-output-logger';
 import httpCors from '@middy/http-cors';
 
 const apiControllerObj = new ApiController();
 
 const baseHandler = async (event: any) => {
+  console.log(event);
   const httpMethod = event?.requestContext?.http?.method || 'GET';
   const rawPath = event?.requestContext?.http?.path;
   const pathSegments = rawPath.split('/').filter(Boolean);
@@ -41,4 +43,4 @@ const corsConfig = {
   origin: '*',
 };
 
-export const handler = middy(baseHandler).use(httpCors(corsConfig));
+export const handler = middy().use(inputOutputLogger()).handler(baseHandler).use(httpCors(corsConfig));

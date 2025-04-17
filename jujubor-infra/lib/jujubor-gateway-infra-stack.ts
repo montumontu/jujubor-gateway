@@ -32,6 +32,7 @@ export class JujuborGatewayInfraStack extends cdk.Stack {
       environment,
       timeout: cdk.Duration.seconds(10),
       memorySize: 1024,
+      depsLockFilePath: path.join(__dirname,'../../jujubor-backend/package-lock.json'),
       bundling: {
         externalModules: [ '@aws-sdk/*', '@smithy/*'],
         nodeModules: [ '@aws-sdk/lib-dynamodb', '@aws-sdk/client-dynamodb'],

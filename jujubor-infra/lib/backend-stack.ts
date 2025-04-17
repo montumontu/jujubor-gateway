@@ -16,7 +16,7 @@ export class BackendStack extends cdk.Stack {
 
     this.createLambdaFunction(this,
       "ClusterLambda",
-      path.join(__dirname, "../../jujubor-backend/src/apis-cluster/api.index.ts"),
+      path.join(__dirname, "../jujubor-backend/src/apis-cluster/api.index.ts"),
       {
         CLUSTER_TABLE_NAME: clusterTable.tableName,
       },
@@ -32,6 +32,7 @@ export class BackendStack extends cdk.Stack {
       environment,
       timeout: cdk.Duration.seconds(10),
       memorySize: 1024,
+      depsLockFilePath: '../jujubor-backend/package-lock.json',
       bundling: {
         externalModules: [ '@aws-sdk/*', '@smithy/*'],
         nodeModules: [ '@aws-sdk/lib-dynamodb', '@aws-sdk/client-dynamodb'],

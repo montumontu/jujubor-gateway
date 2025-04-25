@@ -1,0 +1,50 @@
+<div class="view-wrapper">
+  <div class="view-header">
+    <h2>Your Clusters</h2>
+    <div class="search-box">
+      <input
+        type="text"
+        placeholder="🔍 Search by cluster name..."
+        [(ngModel)]="searchTerm"
+      />
+    </div>
+  </div>
+
+  <div class="cluster-grid">
+    <div
+      class="cluster-card"
+      *ngFor="let cluster of existingClusters | filterClusters: searchTerm; let i = index"
+    >
+      <div class="card-header">
+        <div class="cluster-title">
+          <span class="cluster-number">#{{ i + 1 }}</span>
+          <h3>{{ cluster.clusterName }}</h3>
+        </div>
+        <button class="edit-btn" (click)="onEditCluster(cluster.id)">✏️ Edit</button>
+        <button class="delete-btn" (click)="confirmDelete(cluster)">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 24 24">
+            <path d="M3 6h18v2H3V6zm2 3h14l-1.5 12.5H6.5L5 9zm5 2v8h2v-8H10zm4 0v8h2v-8h-2z"/>
+          </svg> Delete
+        </button>
+        
+
+      </div>
+
+      <div class="card-section">
+        <p><strong>Address:</strong> {{ cluster.address }}:{{ cluster.port }}</p>
+        <p><strong>Route Prefix:</strong> {{ cluster.prefix }}</p>
+        <p><strong>Use TLS:</strong> {{ cluster.useTLS ? 'Yes' : 'No' }}</p>
+      </div>
+
+      <div *ngIf="cluster.cors?.enabled" class="card-section cors">
+        <p><strong>CORS:</strong> Enabled</p>
+        <p><strong>Allowed Origins:</strong> {{ cluster.cors.allowedOrigins }}</p>
+        <p><strong>Allowed Methods:</strong> {{ cluster.cors.allowedMethods }}</p>
+        <p><strong>Allowed Headers:</strong> {{ cluster.cors.allowedHeaders }}</p>
+        <p><strong>Expose Headers:</strong> {{ cluster.cors.exposeHeaders }}</p>
+        <p><strong>Allow Credentials:</strong> {{ cluster.cors.allowCredentials ? 'Yes' : 'No' }}</p>
+        <p><strong>Max Age:</strong> {{ cluster.cors.maxAge }}</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,7 +10,7 @@ export class JujuborGatewayInfraStack extends cdk.Stack {
     // DynamoDB table
     const clusterTable = new dynamodb.Table(this, 'ClusterTable', {
       partitionKey: { name: 'orgId', type: dynamodb.AttributeType.STRING },
-      sortKey: { name: 'clusterId', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'prefix', type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
     });
 

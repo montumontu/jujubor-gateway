@@ -6,6 +6,8 @@ import {
   QueryCommandInput,
   QueryCommandOutput,
   ScanCommand, ScanCommandInput, ScanCommandOutput, UpdateCommand, UpdateCommandInput, UpdateCommandOutput,
+  BatchWriteCommandInput,
+  BatchWriteCommand,
 } from '@aws-sdk/lib-dynamodb';
 import logger from './logger.service';
 
@@ -135,10 +137,11 @@ export class DynamoDBDocumentRepository {
     [key: string]: any; // For future extensibility
   }): Promise<PutCommandOutput> {
     logger.info(item, `Putting item into DynamoDB table: ${ tableName }`);
-
+    
     const params: PutCommandInput = {
       Item: item,
       TableName: tableName,
+      ConditionExpression: 'attribute_not_exists(orgId) AND attribute_not_exists(prefix)',
       ReturnConsumedCapacity: 'TOTAL',
       ...(options?.conditionExpression && { ConditionExpression: options.conditionExpression }),
       ...(options?.expressionAttributeNames && { ExpressionAttributeNames: options.expressionAttributeNames }),
@@ -164,6 +167,42 @@ export class DynamoDBDocumentRepository {
     const command = new DeleteCommand(params);
 
     return this.dynamoDBDocumentClient.send(command);
+  }
+
+  async bulkPutItems(tableName: string, items: Record<string, any>[]): Promise<any> {
+    const MAX_BATCH_SIZE = 25;
+  
+    const batches: Record<string, any>[][] = [];
+  
+    // Split items into batches of 25
+    for (let i = 0; i < items.length; i += MAX_BATCH_SIZE) {
+      batches.push(items.slice(i, i + MAX_BATCH_SIZE));
+    }
+    const results = [];
+    for (const batch of batches) {
+      const params: BatchWriteCommandInput = {
+        RequestItems: {
+          [tableName]: batch.map(item => ({
+            PutRequest: {
+              Item: item,
+            },
+          })),
+        },
+        ReturnConsumedCapacity: 'TOTAL',
+      };
+  
+      logger.info(`Bulk inserting ${batch.length} items into ${tableName}`);
+  
+      const command = new BatchWriteCommand(params);
+      const result = await this.dynamoDBDocumentClient.send(command);
+  
+      if (result.UnprocessedItems && Object.keys(result.UnprocessedItems).length > 0) {
+        logger.warn(result.UnprocessedItems, 'Some items were unprocessed. You may retry them.');
+        // Optional: Retry logic can be added here for unprocessed items
+      }
+      results.push(result);
+    }
+    return results;
   }
 }
 

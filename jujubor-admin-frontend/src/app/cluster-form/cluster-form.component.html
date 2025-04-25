@@ -1,5 +1,5 @@
 <div class="form-wrapper">
-    <h2>Configure Envoy Clusters</h2>
+    <h2>{{ this.mode === 'add' ? 'Configure Envoy Clusters' : 'Edit Envoy Cluster'}}</h2>
   
     <form [formGroup]="clusterForm" (ngSubmit)="onSubmit()">
       <div formArrayName="clusters">
@@ -84,8 +84,10 @@
       </div>
   
       <div class="button-row">
-        <button type="button" class="icon-btn success" (click)="addCluster()">➕ Add Cluster</button>
-        <button type="submit" class="submit-btn">🚀 Submit</button>
+        <button type="button" *ngIf="this.mode === 'add'" class="icon-btn success" (click)="addCluster()">➕ Add Cluster</button>
+        <!-- The below error messages needs to be given CSS -->
+        {{this.errorMessage}}
+        <button type="submit" class="submit-btn">{{ this.mode === "edit" ? "🚀 Save" : "🚀 Submit"}}</button>
       </div>
     </form>
   </div>

@@ -11,7 +11,7 @@ const baseHandler = async (event: any) => {
   const rawPath = event?.requestContext?.http?.path;
   const pathSegments = rawPath.split('/').filter(Boolean);
   const { body } = event;
-  // Getting the cluster name from the path
+  // Getting the cluster name from the path, its kept for use, when we use api gateway
   const name = pathSegments.length ? pathSegments[0]: undefined;
   
   const methodHandlers: Record<string, () => unknown> = {

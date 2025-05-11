@@ -18,113 +18,35 @@ import { importProvidersFrom } from '@angular/core';
   styleUrl: './clusters-list-view.component.scss'
 })
 export class ClustersListViewComponent {
-  existingClusters = [{
-    id: "123",
-    clusterName: "Dummy Cluster",
-    address: "polite.com",
-    port: "9090",
-    prefix: "https",
-    useTLS: "Yes",
-    cors: {
-      enabled: true,
-      allowedOrigins: ['www.google.com'],
-      allowedMethods: ['GET'],
-      allowedHeaders: ['Authorization'],
-      exposeHeaders: "True",
-      allowCredentials: "True",
-      maxAge: false,
-
-    }
-
-  }, {
-    id:123,
-    clusterName: "pigeon Cluster",
-    address: "polite.com",
-    port: "9090",
-    prefix: "https",
-    useTLS: "Yes",
-    cors: {
-      enabled: true,
-      allowedOrigins: ['www.google.com'],
-      allowedMethods: ['GET'],
-      allowedHeaders: ['Authorization'],
-      exposeHeaders: "True",
-      allowCredentials: "True",
-      maxAge: false,
-
-    }
-
-  }, {
-    id: 123,
-    clusterName: "Yes Cluster",
-    address: "polite.com",
-    port: "9090",
-    prefix: "https",
-    useTLS: "Yes",
-    cors: {
-      enabled: true,
-      allowedOrigins: ['www.google.com'],
-      allowedMethods: ['GET'],
-      allowedHeaders: ['Authorization'],
-      exposeHeaders: "True",
-      allowCredentials: "True",
-      maxAge: false,
-
-    }
-
-  }, {
-    id: 123,
-    clusterName: "peacock Cluster",
-    address: "polite.com",
-    port: "9090",
-    prefix: "https",
-    useTLS: "Yes",
-    cors: {
-      enabled: true,
-      allowedOrigins: ['www.google.com'],
-      allowedMethods: ['GET'],
-      allowedHeaders: ['Authorization'],
-      exposeHeaders: "True",
-      allowCredentials: "True",
-      maxAge: false,
-
-    }
-
-  }, 
-  {
-    id: 123,
-    clusterName: "Ashoka Cluster",
-    address: "polite.com",
-    port: "9090",
-    prefix: "https",
-    useTLS: "Yes",
-    cors: {
-      enabled: true,
-      allowedOrigins: ['www.google.com'],
-      allowedMethods: ['GET'],
-      allowedHeaders: ['Authorization'],
-      exposeHeaders: "True",
-      allowCredentials: "True",
-      maxAge: false,
-
-    }
-  }, 
-];
-
+  existingClusters: any;
   searchTerm: string = '';
   allClusters: any[] = []; // fetched or injected
   get filteredClusters() {
     console.log("filtered clusters");
-    return this.existingClusters.filter(cluster =>
+    return this.existingClusters.filter((cluster: { clusterName: string; }) =>
       cluster.clusterName.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
   constructor(private router: Router, private clusterService: ClusterService,) {
-
+    
   }
 
-  onEditCluster(clusterId: any) {
-    this.router.navigate(['/cluster/edit', clusterId]);
+  async ngOnInit() {
+    // this.existingClusters = await this.clusterService.getClusters();
+    // console.log(this.existingClusters, "this.existing clusters");
+    this.clusterService.getClusters().subscribe({
+      next: (data) => {
+        this.existingClusters = data;
+      },
+      error: (err) => {
+        console.error('Error loading clusters:', err);
+      }
+    });
+  }
+
+
+  onEditCluster(clusterPrefix: any) {
+    this.router.navigate(['/cluster/edit', clusterPrefix]);
   }
   confirmDelete(cluster: any) {
     const userInput = prompt(`To confirm deletion, enter the Cluster ID: "${cluster.id}"`);

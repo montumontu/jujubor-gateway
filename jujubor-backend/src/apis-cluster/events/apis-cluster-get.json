@@ -1,0 +1,48 @@
+{
+    "version": "2.0",
+    "routeKey": "$default",
+    "rawPath": "/",
+    "rawQueryString": "",
+    "headers": {
+      "sec-fetch-mode": "cors",
+      "referer": "http://localhost:4200/",
+      "content-length": "507",
+      "x-amzn-tls-version": "TLSv1.3",
+      "sec-fetch-site": "cross-site",
+      "x-forwarded-proto": "https",
+      "accept-language": "en-US,en;q=0.9,hi;q=0.8",
+      "origin": "http://localhost:4200",
+      "x-forwarded-port": "443",
+      "x-forwarded-for": "2409:40c1:10fc:e1e:bc81:977e:13e3:840",
+      "accept": "*/*",
+      "x-amzn-tls-cipher-suite": "TLS_AES_128_GCM_SHA256",
+      "sec-ch-ua": "\"Google Chrome\";v=\"135\", \"Not-A.Brand\";v=\"8\", \"Chromium\";v=\"135\"",
+      "x-amzn-trace-id": "Root=1-6801a696-2e59d64a56c196f55e43e222",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"macOS\"",
+      "host": "wtqqnztspbtgk7cvp6r6oghbbm0obiss.lambda-url.ap-south-1.on.aws",
+      "content-type": "text/plain;charset=UTF-8",
+      "accept-encoding": "gzip, deflate, br, zstd",
+      "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36",
+      "sec-fetch-dest": "empty"
+    },
+    "requestContext": {
+      "accountId": "anonymous",
+      "apiId": "wtqqnztspbtgk7cvp6r6oghbbm0obiss",
+      "domainName": "wtqqnztspbtgk7cvp6r6oghbbm0obiss.lambda-url.ap-south-1.on.aws",
+      "domainPrefix": "wtqqnztspbtgk7cvp6r6oghbbm0obiss",
+      "http": {
+        "method": "GET",
+        "path": "/",
+        "protocol": "HTTP/1.1",
+        "sourceIp": "2409:40c1:10fc:e1e:bc81:977e:13e3:840",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+      },
+      "requestId": "c7db8cec-b6d6-4f56-9429-e92c39306ada",
+      "routeKey": "$default",
+      "stage": "$default",
+      "time": "18/Apr/2025:01:10:46 +0000",
+      "timeEpoch": 1744938646933
+    },
+    "isBase64Encoded": false
+  }

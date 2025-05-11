@@ -12,11 +12,14 @@ const baseHandler = async (event: any) => {
   const pathSegments = rawPath.split('/').filter(Boolean);
   const { body } = event;
   // Getting the cluster name from the path, its kept for use, when we use api gateway
-  const name = pathSegments.length ? pathSegments[0]: undefined;
-  
+  const clusterId = pathSegments.length ? pathSegments[0]: undefined;
+  const prefix = pathSegments.length ? pathSegments[0]: undefined;
+  console.log(clusterId, prefix, "cluster id and prefix");
+  const orgId = "1";
   const methodHandlers: Record<string, () => unknown> = {
-    //GET: () => apiControllerObj.getApi(name),
+    GET: () => apiControllerObj.getApi(orgId, clusterId),
     POST: () => apiControllerObj.createCluster(body),
+    PATCH: () => apiControllerObj.updateCluster(orgId, prefix, body),
     // PUT: () => apiControllerObj.updateApi(name, version, body),
     // DELETE: () => apiControllerObj.deleteApi(name, version),
     OPTIONS: () => ({ statusCode: 204 }),
@@ -37,7 +40,7 @@ const baseHandler = async (event: any) => {
 };
 
 const corsConfig = {
-  methods: 'GET, POST, PUT, OPTIONS, DELETE',
+  methods: 'GET, POST, PUT, PATCH, OPTIONS, DELETE',
   headers: 'Content-Type, Authorization',
   allowCredentials: true,
   origin: '*',

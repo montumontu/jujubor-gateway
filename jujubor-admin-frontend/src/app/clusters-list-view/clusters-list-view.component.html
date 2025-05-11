@@ -20,7 +20,7 @@
           <span class="cluster-number">#{{ i + 1 }}</span>
           <h3>{{ cluster.clusterName }}</h3>
         </div>
-        <button class="edit-btn" (click)="onEditCluster(cluster.id)">✏️ Edit</button>
+        <button class="edit-btn" (click)="onEditCluster(cluster.prefix)">✏️ Edit</button>
         <button class="delete-btn" (click)="confirmDelete(cluster)">
           <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 24 24">
             <path d="M3 6h18v2H3V6zm2 3h14l-1.5 12.5H6.5L5 9zm5 2v8h2v-8H10zm4 0v8h2v-8h-2z"/>

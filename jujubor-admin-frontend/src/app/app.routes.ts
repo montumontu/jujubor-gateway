@@ -18,7 +18,7 @@ export const routes: Routes = [
         component: ClustersListViewComponent
       },
       {
-        path: 'cluster/edit/:id',
+        path: 'cluster/edit/:prefix',
         component: ClusterFormComponent
       },
 ];

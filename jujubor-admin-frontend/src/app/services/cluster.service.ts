@@ -28,106 +28,106 @@ export interface Cluster {
     providedIn: 'root',
 })
 export class ClusterService {
-    private baseUrl = '/api/cluster'; // Adjust base URL as needed
-    private dummyClusters = [ {
-        id:1234,
-        clusterName: "pigeon Cluster",
-        address: "polite.com",
-        port: "9090",
-        prefix: "pigeon",
-        useTLS: "Yes",
-        clusterId: "01e20e4d-b519-4552-b655-33d90berb0e6",
-        cors: {
-          enabled: true,
-          allowedOrigins: ['www.google.com'],
-          allowedMethods: ['GET'],
-          allowedHeaders: ['Authorization'],
-          exposeHeaders: "True",
-          allowCredentials: "True",
-          maxAge: false,
+    private baseUrl = 'https://wtqqnztspbtgk7cvp6r6oghbbm0obiss.lambda-url.ap-south-1.on.aws'; // Adjust base URL as needed
+    // private dummyClusters = [ {
+    //     id:1234,
+    //     clusterName: "pigeon Cluster",
+    //     address: "polite.com",
+    //     port: "9090",
+    //     prefix: "pigeon",
+    //     useTLS: "Yes",
+    //     clusterId: "01e20e4d-b519-4552-b655-33d90berb0e6",
+    //     cors: {
+    //       enabled: true,
+    //       allowedOrigins: ['www.google.com'],
+    //       allowedMethods: ['GET'],
+    //       allowedHeaders: ['Authorization'],
+    //       exposeHeaders: "True",
+    //       allowCredentials: "True",
+    //       maxAge: false,
     
-        }
+    //     }
     
-      }, {
-        id: 1235,
-        clusterName: "Yes Cluster",
-        address: "polite.com",
-        port: "9090",
-        prefix: "yes",
-        useTLS: "Yes",
-        clusterId: "01e20e4d-b519-4552-b666-33d90berb0e6",
-        cors: {
-          enabled: true,
-          allowedOrigins: ['www.google.com'],
-          allowedMethods: ['GET'],
-          allowedHeaders: ['Authorization'],
-          exposeHeaders: "True",
-          allowCredentials: "True",
-          maxAge: false,
+    //   }, {
+    //     id: 1235,
+    //     clusterName: "Yes Cluster",
+    //     address: "polite.com",
+    //     port: "9090",
+    //     prefix: "yes",
+    //     useTLS: "Yes",
+    //     clusterId: "01e20e4d-b519-4552-b666-33d90berb0e6",
+    //     cors: {
+    //       enabled: true,
+    //       allowedOrigins: ['www.google.com'],
+    //       allowedMethods: ['GET'],
+    //       allowedHeaders: ['Authorization'],
+    //       exposeHeaders: "True",
+    //       allowCredentials: "True",
+    //       maxAge: false,
     
-        }
+    //     }
     
-      }, {
-        id: 1236,
-        clusterName: "peacock Cluster",
-        address: "polite.com",
-        port: "9090",
-        prefix: "peacock",
-        useTLS: "Yes",
-        orgId: "1",
-        clusterId: "01e20e4d-b519-4552-b677-33d90berb0e6",
-        cors: {
-          enabled: true,
-          allowedOrigins: ['www.google.com'],
-          allowedMethods: ['GET'],
-          allowedHeaders: ['Authorization'],
-          exposeHeaders: "True",
-          allowCredentials: "True",
-          maxAge: false,
+    //   }, {
+    //     id: 1236,
+    //     clusterName: "peacock Cluster",
+    //     address: "polite.com",
+    //     port: "9090",
+    //     prefix: "peacock",
+    //     useTLS: "Yes",
+    //     orgId: "1",
+    //     clusterId: "01e20e4d-b519-4552-b677-33d90berb0e6",
+    //     cors: {
+    //       enabled: true,
+    //       allowedOrigins: ['www.google.com'],
+    //       allowedMethods: ['GET'],
+    //       allowedHeaders: ['Authorization'],
+    //       exposeHeaders: "True",
+    //       allowCredentials: "True",
+    //       maxAge: false,
     
-        }
+    //     }
     
-      }, 
-      {
-        id: 1237,
-        clusterName: "Ashoka Cluster",
-        address: "polite.com",
-        port: "9090",
-        prefix: "ashoka",
-        useTLS: "Yes",
-        clusterId: "01e20e4d-b519-4552-b688-33d90berb0e6",
-        cors: {
-          enabled: true,
-          allowedOrigins: ['www.google.com'],
-          allowedMethods: ['GET'],
-          allowedHeaders: ['Authorization'],
-          exposeHeaders: "True",
-          allowCredentials: "True",
-          maxAge: false,
+    //   }, 
+    //   {
+    //     id: 1237,
+    //     clusterName: "Ashoka Cluster",
+    //     address: "polite.com",
+    //     port: "9090",
+    //     prefix: "ashoka",
+    //     useTLS: "Yes",
+    //     clusterId: "01e20e4d-b519-4552-b688-33d90berb0e6",
+    //     cors: {
+    //       enabled: true,
+    //       allowedOrigins: ['www.google.com'],
+    //       allowedMethods: ['GET'],
+    //       allowedHeaders: ['Authorization'],
+    //       exposeHeaders: "True",
+    //       allowCredentials: "True",
+    //       maxAge: false,
     
-        }
-      }, 
-      {
-        id: "123",
-        clusterName: "Dummy Cluster",
-        address: "polite.com",
-        port: "9090",
-        prefix: "dummmy",
-        useTLS: "Yes",
-        "orgId": "1",
-        clusterId: "01e20e4d-b519-4552-b699-33d90berb0e6",
-        cors: {
-          enabled: true,
-          allowedOrigins: ['www.google.com'],
-          allowedMethods: ['GET'],
-          allowedHeaders: ['Authorization'],
-          exposeHeaders: "True",
-          allowCredentials: "True",
-          maxAge: false,
+    //     }
+    //   }, 
+    //   {
+    //     id: "123",
+    //     clusterName: "Dummy Cluster",
+    //     address: "polite.com",
+    //     port: "9090",
+    //     prefix: "dummmy",
+    //     useTLS: "Yes",
+    //     "orgId": "1",
+    //     clusterId: "01e20e4d-b519-4552-b699-33d90berb0e6",
+    //     cors: {
+    //       enabled: true,
+    //       allowedOrigins: ['www.google.com'],
+    //       allowedMethods: ['GET'],
+    //       allowedHeaders: ['Authorization'],
+    //       exposeHeaders: "True",
+    //       allowCredentials: "True",
+    //       maxAge: false,
     
-        }
-      },
-    ];
+    //     }
+    //   },
+    // ];
     private clusters: any;
 
     constructor(private http: HttpClient) {
@@ -172,11 +172,7 @@ export class ClusterService {
     /**
      * Delete a cluster by ID
      */
-    deleteCluster(id: string): Observable<any> {
-        // return this.http.delete(`${this.baseUrl}/${id}`);
-        console.log(`Simulated delete of cluster with id: ${id}`);
-
-        // Return a fake success response
-        return of({ success: true, message: `Cluster ${id} deleted.` });
+    deleteCluster(clusterPath: string): Observable<any> {
+        return this.http.patch(`${this.baseUrl}/${clusterPath}`, { deleted : true});
     }
 }

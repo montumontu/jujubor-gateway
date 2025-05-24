@@ -17,6 +17,7 @@ export class ClusterFormComponent {
   mode: 'add' | 'edit' = 'add';
   clusterPrefix: string | null = null;
   existingClusters: any;
+  uneditCluster: any;
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private clusterService: ClusterService,) {
     this.errorMessage = "";
     this.clusterForm = this.fb.group({
@@ -81,6 +82,7 @@ export class ClusterFormComponent {
     console.log(this.mode, "edit modes");
     if (this.mode === "edit") {
       const clusterResponse = await this.editCluster();
+      return clusterResponse;
     }
     if (this.clusterForm.valid) {
       console.log('Form Data:', this.clusterForm.value.clusters);
@@ -136,15 +138,50 @@ export class ClusterFormComponent {
 
   async editCluster() {
     if (this.clusterForm.valid) {
-      console.log("in edit clusters", this.clusterForm.value.clusters[0]);
-      console.log('Form Data:', this.clusterForm.value.clusters);
-      const clusterResponse = await fetch("https://wtqqnztspbtgk7cvp6r6oghbbm0obiss.lambda-url.ap-south-1.on.aws/", {
+      const updatedCluster = this.clusterForm.value.clusters[0];
+      const prefix = updatedCluster.prefix;
+  
+      const cluster = this.existingClusters.find((c: { prefix: string | null }) => c.prefix === prefix);
+  
+      if (!cluster) {
+        console.error("Original cluster not found");
+        return;
+      }
+  
+      const changedProperties = this.getChangedProperties(cluster, updatedCluster, ['prefix']);
+  
+      if (Object.keys(changedProperties).length === 0) {
+        console.log("No changes detected.");
+        return;
+      }
+  
+      console.log('Changedd Properties:', changedProperties);
+  
+      const clusterResponse = await fetch(`https://wtqqnztspbtgk7cvp6r6oghbbm0obiss.lambda-url.ap-south-1.on.aws/${prefix}`, {
         method: "PATCH",
-        body: JSON.stringify(this.clusterForm.value.clusters[0])
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          ...changedProperties
+        }),
       });
-      console.log(clusterResponse);
-      // You can send this JSON to backend or use it to generate YAML
+  
+      console.log("Server Response:", clusterResponse);
     }
+  }
+  
+
+  getChangedProperties(original: { [key: string]: any }, updated: { [key: string]: any }, excludeKeys: string[] = []): { [key: string]: any } {
+    const changes: { [key: string]: any } = {};
+  
+    Object.keys(updated).forEach(key => {
+      if (!excludeKeys.includes(key) && updated[key] !== original[key]) {
+        changes[key] = updated[key];
+      }
+    });
+  
+    return changes;
   }
 
 }

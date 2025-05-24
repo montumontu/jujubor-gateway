@@ -51,11 +51,14 @@ export class ApiController {
             const keyConditionExpression = `#orgId = :orgId`;
             const expressionAttributeNames = { 
                 '#orgId': 'orgId',
+                '#deleted': 'deleted',
             };
             const expressionAttributeValues = {
                 ":orgId": orgId,
+                ":deletedValue": false,
             };
-            const clusterList = await dynamoDb.queryItem(TABLE_NAME, keyConditionExpression, expressionAttributeNames, expressionAttributeValues);
+            const filterExpression = 'attribute_not_exists(#deleted) OR #deleted= : deletedValue';
+            const clusterList = await dynamoDb.queryItem(TABLE_NAME, keyConditionExpression, expressionAttributeNames, expressionAttributeValues, filterExpression);
             if (!clusterList.Items?.[0]) {
                 throw new Error("Cluster list not Found");
             }
@@ -65,8 +68,24 @@ export class ApiController {
         }
     }
 
-    async updateCluster(orgId: string, prefix: string, changedProperties: { [key: string]: any }) {
+    async updateCluster(orgId: string, prefix: string, changedProperties: { [key: string]: any } | any) {
         try {
+            // if (typeof changedProperties === "string") {
+            //     try {
+            //         changedProperties = JSON.parse(changedProperties);
+            //     } catch (e) {
+            //         throw new Error("Invalid JSON string passed as changedProperties.");
+            //     }
+            // }
+            console.log("this is working here");
+            console.log("changedProperties", changedProperties);
+            //changedProperties = JSON.parse(changedProperties);
+            console.log("First changed properties", changedProperties);
+            if (typeof changedProperties === 'string') {
+                console.log("parsing again", JSON.parse(changedProperties));
+                changedProperties = JSON.parse(changedProperties);
+            }
+
             const { updateExpression, expressionAttributeNames, expressionAttributeValues } = this.buildUpdateExpression(changedProperties);
             const dynamoDb = DynamoDBDocumentRepository.getInstance();
     

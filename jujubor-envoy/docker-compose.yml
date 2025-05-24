@@ -1,12 +1,11 @@
-version: '3.8'
 services:
-  nodeapp:
-    build:
-      context: ./my-node-api
-      dockerfile: Dockerfile
-    container_name: nodeapp
-    ports:
-      - "8080:8080"
+  # nodeapp:
+  #   build:
+  #     context: ./my-node-api
+  #     dockerfile: Dockerfile
+  #   container_name: nodeapp
+  #   ports:
+  #     - "8080:8080"
     # networks:
     #   - envoy_network
   envoy:
@@ -19,8 +18,8 @@ services:
       - "9905:9905"
     # volumes:
     #   - ./envoy/dynamic-envoy.yaml:/etc/envoy/dynamic-envoy.yaml
-    depends_on:
-      - nodeapp
+    # depends_on:
+    #   - nodeapp
 # networks:
 #   envoy_network:
 #     driver: bridge

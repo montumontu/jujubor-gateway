@@ -50,17 +50,18 @@ export class ClustersListViewComponent {
   }
   confirmDelete(cluster: any) {
     const userInput = prompt(`To confirm deletion, enter the Cluster ID: "${cluster.id}"`);
-  
-    if (userInput === cluster.id) {
-      this.deleteCluster(cluster.id);
+    console.log(userInput, "user input");
+    console.log("cluster", cluster)
+    if (userInput == cluster.id) {
+      this.deleteCluster(cluster.prefix);
     } else {
       alert('Cluster ID did not match. Deletion cancelled.');
     }
   }
   
-  deleteCluster(clusterId: string) {
+  deleteCluster(clusterPath: string) {
     // 🔧 Replace this with your actual delete service call
-    this.clusterService.deleteCluster(clusterId).subscribe({
+    this.clusterService.deleteCluster(clusterPath).subscribe({
       next: () => {
         console.log("cluster deleted successfully");
         // alert('Cluster deleted successfully!');

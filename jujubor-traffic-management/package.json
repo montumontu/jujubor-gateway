@@ -1,0 +1,21 @@
+{
+  "name": "jujubor-traffic-management",
+  "version": "1.0.0",
+  "description": "jujubor traffic management",
+  "scripts": {
+    "start": "node --loader ts-node/esm src/server.ts"
+  },
+  "type": "module",
+  "dependencies": {
+    "express": "^4.19.2",
+    "ioredis": "^5.3.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.18",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.1"
+  },
+  "author": "",
+  "license": "ISC"
+}

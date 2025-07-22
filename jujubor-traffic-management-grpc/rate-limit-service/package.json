@@ -1,0 +1,10 @@
+{
+    "name": "rate-limit-service",
+    "version": "1.0.0",
+    "main": "index.js",
+    "type": "module",
+    "dependencies": {
+      "@grpc/grpc-js": "^1.10.5",
+      "@grpc/proto-loader": "^0.7.7"
+    }
+  }

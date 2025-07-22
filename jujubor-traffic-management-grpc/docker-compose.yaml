@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  rate-limit-service:
+    build: ./rate-limit-service
+    ports:
+      - "8081:8081"
+
+  # backend:
+  #   build: ./backend
+  #   ports:
+  #     - "5000:5000"

@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package envoy.service.ratelimit.v3;
+
+option java_multiple_files = true;
+option java_package = "io.envoyproxy.envoy.service.ratelimit.v3";
+option go_package = "github.com/envoyproxy/go-control-plane/envoy/service/ratelimit/v3";
+
+// RateLimitRequest defines the input to the ShouldRateLimit RPC.
+message RateLimitRequest {
+  string domain = 1;
+  repeated RateLimitDescriptor descriptors = 2;
+}
+
+// RateLimitDescriptor holds key-value pairs used for rate limit decisions.
+message RateLimitDescriptor {
+  repeated Entry entries = 1;
+
+  message Entry {
+    string key = 1;
+    string value = 2;
+  }
+}
+
+// RateLimitResponse defines the result of a rate limit check.
+message RateLimitResponse {
+  enum Code {
+    UNKNOWN = 0;
+    OK = 1;
+    OVER_LIMIT = 2;
+  }
+
+  Code overall_code = 1;
+}
+
+// RateLimitService is the gRPC service for rate limiting.
+service RateLimitService {
+  rpc ShouldRateLimit (RateLimitRequest) returns (RateLimitResponse);
+}

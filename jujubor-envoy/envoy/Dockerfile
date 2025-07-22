@@ -10,14 +10,18 @@ RUN echo "hi this is okdd"
 # Copy and run config generation script
 COPY ./scripts/configuration-creator.js .
 COPY ./envoy-config .
+COPY ./envoy-config/jwks.json /etc/envoy/jwks.json
 COPY ./dynamic-envoy.json .
+RUN echo "testingtjjjr"
 RUN node configuration-creator.js
 
 
 # === Stage 2: Envoy Proxy ===
 FROM envoyproxy/envoy:v1.34-latest
 
+
 # Copy generated config from the first stage
+COPY ./envoy-config/jwks.json /etc/envoy/jwks.json
 COPY --from=config-generator /app/dynamic-envoy.json /etc/envoy/dynamic-envoy.json
 COPY --from=config-generator /app/clusters.json /etc/envoy/clusters.json
 COPY --from=config-generator /app/listeners.json /etc/envoy/listeners.json
